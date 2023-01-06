@@ -1,0 +1,51 @@
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS202: Simplify dynamic range loops
+ * DS205: Consider reworking code to avoid use of IIFEs
+ * DS207: Consider shorter variations of null checks
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+// Dependencies
+const { PixelUtil } = require('pixel-util');
+const { GifReader } = require('omggif');
+
+class PixelGif extends PixelUtil {
+  parse(file) {
+    return this.createBuffer(file).then(buffer => {
+      const reader = new GifReader(new Uint8Array(buffer));
+
+      const images = (() => {
+        const result = [];
+        for (
+          let i = 0, end = reader.numFrames(), asc = 0 <= end;
+          asc ? i < end : i > end;
+          asc ? i++ : i--
+        ) {
+          var image = this.createImageData(reader.width, reader.height);
+          var object = reader.frameInfo(i);
+          for (var key in object) {
+            var value = object[key];
+            image[key] = value;
+          }
+          if (image.delay) {
+            image.delay = image.delay * 10;
+          } // bugfix
+          reader.decodeAndBlitFrameRGBA(i, image.data);
+
+          result.push(image);
+        }
+        return result;
+      })();
+
+      images.loopCount = reader.loopCount();
+      if (images.loopCount == null) {
+        images.loopCount = -1;
+      }
+      return images;
+    });
+  }
+}
+
+module.exports = new PixelGif();
+module.exports.PixelGif = PixelGif;
