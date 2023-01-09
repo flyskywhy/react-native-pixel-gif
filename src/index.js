@@ -7,8 +7,8 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 // Dependencies
-const { PixelUtil } = require('pixel-util');
-const { GifReader } = require('omggif');
+import {PixelUtil} from 'react-native-pixel-util';
+import {GifReader} from 'omggif';
 
 class PixelGif extends PixelUtil {
   parse(file) {
@@ -25,6 +25,10 @@ class PixelGif extends PixelUtil {
           var image = this.createImageData(reader.width, reader.height);
           var object = reader.frameInfo(i);
           for (var key in object) {
+            if (key === 'width' || key === 'height') {
+              // to avoid `Cannot assign to read only property 'width' of object '#<ImageData>'` on Web
+              continue;
+            }
             var value = object[key];
             image[key] = value;
           }
@@ -47,5 +51,5 @@ class PixelGif extends PixelUtil {
   }
 }
 
-module.exports = new PixelGif();
-module.exports.PixelGif = PixelGif;
+export default new PixelGif();
+export {PixelGif};
