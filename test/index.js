@@ -7,9 +7,6 @@
 const pixelGif = require('../src');
 const fixture = require('fixture-images');
 
-// Environment
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 3000;
-
 // Specs
 describe('pixel-gif', () =>
   describe('.parse', function() {
