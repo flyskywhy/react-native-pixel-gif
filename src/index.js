@@ -32,9 +32,11 @@ class PixelGif extends PixelUtil {
             var value = object[key];
             image[key] = value;
           }
-          if (image.delay) {
+          if (image.hasOwnProperty('delay')) {
             image.delay = image.delay * 10;
-          } // bugfix
+          } else {
+            image.delay = 100; // ms
+          }
           reader.decodeAndBlitFrameRGBA(i, image.data);
 
           result.push(image);
