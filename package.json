@@ -1,7 +1,7 @@
 {
-  "name": "pixel-gif",
-  "version": "0.0.1",
-  "description": "Parse Gif to ImageData in cross-platform",
+  "name": "react-native-pixel-gif",
+  "version": "1.0.0",
+  "description": "Parse Gif to ImageData for React Native",
 
   "main": "src",
 
@@ -17,6 +17,13 @@
   },
 
   "author": "59naga <i59naga@icloud.com> (http://berabou.me)",
+  "contributors": [
+    {
+      "name": "Li Zheng",
+      "email": "flyskywhy@gmail.com",
+      "url": "https://github.com/flyskywhy"
+    }
+  ],
   "license": "MIT",
   "dependencies": {
     "omggif": "^1.0.8",
@@ -32,15 +39,17 @@
   },
 
   "keywords": [
+    "gif",
+    "imagedata",
     "pixel",
-    "gif"
+    "react-native"
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/59naga/pixel-gif-.git"
+    "url": "git+https://github.com/flyskywhy/react-native-pixel-gif.git"
   },
   "bugs": {
-    "url": "https://github.com/59naga/pixel-gif-/issues"
+    "url": "https://github.com/flyskywhy/react-native-pixel-gif/issues"
   },
-  "homepage": "https://github.com/59naga/pixel-gif-#readme"
+  "homepage": "https://github.com/flyskywhy/react-native-pixel-gif#readme"
 }
