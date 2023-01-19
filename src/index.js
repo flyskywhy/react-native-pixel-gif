@@ -17,16 +17,25 @@ class PixelGif extends PixelUtil {
 
       const images = (() => {
         const result = [];
+        var gifNeedsDisposal = true;
         for (
           let i = 0, end = reader.numFrames(), asc = 0 <= end;
           asc ? i < end : i > end;
           asc ? i++ : i--
         ) {
+          const width = reader.width;
+          const height = reader.height;
+
+          const patchLeft = reader.frameInfo(i).x;
+          const patchTop = reader.frameInfo(i).y;
+          const patchWidth = reader.frameInfo(i).width;
+          const patchHeight = reader.frameInfo(i).height;
+
           var image;
-          if (reader.frameInfo(i).width === reader.width && reader.frameInfo(i).height === reader.height) {
-            image = new ImageData(reader.width, reader.height);
+          if (patchWidth === width && patchHeight === height) {
+            image = new ImageData(width, height);
           } else if (i > 0) {
-            image = new ImageData(new Uint8ClampedArray(result[i - 1].data), reader.width, reader.height);
+            image = new ImageData(new Uint8ClampedArray(result[i - 1].data), width, height);
           }
 
           var object = reader.frameInfo(i);
@@ -43,6 +52,24 @@ class PixelGif extends PixelUtil {
           } else {
             image.delay = 100; // ms
           }
+
+          // ref to https://github.com/flyskywhy/gifuct-js/blob/2.2.2/src/index.js#L102
+          if (gifNeedsDisposal) {
+            for (let y = 0; y < patchHeight; y++) {
+              for (let x = 0; x < patchWidth; x++) {
+                let op = (((y + patchTop) * width) + x + patchLeft) * 4;
+                image.data[op++] = 0;
+                image.data[op++] = 0;
+                image.data[op++] = 0;
+                image.data[op] = 0;
+              }
+            }
+            gifNeedsDisposal = false;
+          }
+          if (reader.frameInfo(i).disposal === 2) {
+            gifNeedsDisposal = true;
+          }
+
           reader.decodeAndBlitFrameRGBA(i, image.data);
 
           result.push(image);
