@@ -1,6 +1,6 @@
 {
   "name": "react-native-pixel-gif",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Parse Gif to ImageData for React Native",
 
   "main": "src",
