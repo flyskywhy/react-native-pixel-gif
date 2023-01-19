@@ -22,7 +22,13 @@ class PixelGif extends PixelUtil {
           asc ? i < end : i > end;
           asc ? i++ : i--
         ) {
-          var image = this.createImageData(reader.width, reader.height);
+          var image;
+          if (reader.frameInfo(i).width === reader.width && reader.frameInfo(i).height === reader.height) {
+            image = new ImageData(reader.width, reader.height);
+          } else if (i > 0) {
+            image = new ImageData(new Uint8ClampedArray(result[i - 1].data), reader.width, reader.height);
+          }
+
           var object = reader.frameInfo(i);
           for (var key in object) {
             if (key === 'width' || key === 'height') {
