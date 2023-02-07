@@ -9,6 +9,7 @@
 // Dependencies
 import {PixelUtil} from 'react-native-pixel-util';
 import {GifReader} from 'omggif';
+import ImageData from '@canvas/image-data';
 
 class PixelGif extends PixelUtil {
   parse(file) {
