@@ -1,13 +1,10 @@
 {
   "name": "react-native-pixel-gif",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Parse Gif to ImageData for React Native",
-
   "main": "src",
-
   "scripts": {
     "localhost": "zuul test --local 59798 --open",
-
     "test-cloud": "zuul test && echo ok || echo skip posttest"
   },
   "config": {
@@ -15,7 +12,6 @@
       "pre-commit": ""
     }
   },
-
   "author": "59naga <i59naga@icloud.com> (http://berabou.me)",
   "contributors": [
     {
@@ -37,7 +33,6 @@
     "object-parser-cli": "^0.0.1",
     "zuul": "^3.7.2"
   },
-
   "keywords": [
     "gif",
     "imagedata",
