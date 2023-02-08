@@ -23,7 +23,7 @@
   "license": "MIT",
   "dependencies": {
     "omggif": "^1.0.8",
-    "react-native-pixel-util": "^1.1.0"
+    "react-native-pixel-util": "^1.1.1"
   },
   "devDependencies": {
     "brfs": "^1.4.1",
